@@ -1,0 +1,36 @@
+name: bioinformatics_tools
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=4.5=1_gnu
+  - biopython=1.79=py38h497a2fe_0
+  - ca-certificates=2021.5.30=ha878542_0
+  - hmmer=3.3.2=h1b792b2_1
+  - ld_impl_linux-64=2.36.1=hea4e1c9_2
+  - libblas=3.9.0=11_linux64_openblas
+  - libcblas=3.9.0=11_linux64_openblas
+  - libffi=3.3=h58526e2_2
+  - libgcc-ng=9.3.0=h5101ec6_17
+  - libgfortran-ng=11.1.0=h69a702a_8
+  - libgfortran5=11.1.0=h6c583b3_8
+  - libgomp=9.3.0=h5101ec6_17
+  - liblapack=3.9.0=11_linux64_openblas
+  - libopenblas=0.3.17=pthreads_h8fe5266_1
+  - libstdcxx-ng=9.3.0=hd4cf53a_17
+  - ncurses=6.2=h58526e2_4
+  - numpy=1.20.3=py38h9894fe3_1
+  - openssl=1.1.1l=h7f8727e_0
+  - pip=21.2.4=pyhd8ed1ab_0
+  - python=3.8.10=h49503c6_1_cpython
+  - python_abi=3.8=2_cp38
+  - readline=8.1=h46c0cb4_0
+  - setuptools=58.0.3=py38h578d9bd_0
+  - sqlite=3.36.0=h9cd32fc_0
+  - tk=8.6.11=h21135ba_0
+  - wheel=0.37.0=pyhd8ed1ab_1
+  - xz=5.2.5=h516909a_1
+  - zlib=1.2.11=h516909a_1010
+prefix: /home/goodboy/anaconda3/envs/bioinformatics_tools
