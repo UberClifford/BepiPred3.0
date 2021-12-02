@@ -1,0 +1,1 @@
+mmseqs easy-cluster ../1ClusterAt95Id/Id95ClustersCombined/clustered_combined_antigens.fasta Id70ClusterResults/Id70ClusterRes tmp --min-seq-id 0.7 -c 0.8 --cov-mode 1

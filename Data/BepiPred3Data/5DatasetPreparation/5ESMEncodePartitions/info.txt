@@ -1,0 +1,18 @@
+#create non_annotated fasta files in order to ESM encode files
+python create_annotation_removed_fasta_file.py -i ../4DivideProteinsInto5Partitions/Results/Fold1.fasta -t ./Folds_without_Annotations/Fold1.fasta
+python create_annotation_removed_fasta_file.py -i ../4DivideProteinsInto5Partitions/Results/Fold2.fasta -t ./Folds_without_Annotations/Fold2.fasta
+python create_annotation_removed_fasta_file.py -i ../4DivideProteinsInto5Partitions/Results/Fold3.fasta -t ./Folds_without_Annotations/Fold3.fasta
+python create_annotation_removed_fasta_file.py -i ../4DivideProteinsInto5Partitions/Results/Fold4.fasta -t ./Folds_without_Annotations/Fold4.fasta
+python create_annotation_removed_fasta_file.py -i ../4DivideProteinsInto5Partitions/Results/Fold5.fasta -t ./Folds_without_Annotations/Fold5.fasta
+python create_annotation_removed_fasta_file.py -i ../3ClusterAt70Id/Id70ClusterResults/Id70ClusterRes_rep_seq.fasta -t ./Folds_without_Annotations/Cluster70IdRep.fasta
+python create_annotation_removed_fasta_file.py -i ../2CreateTestSet/bepipred3_test.fasta -t Folds_without_Annotations/bepipred3_test.fasta
+
+mkdir Fold1 Fold2 Fold3 Fold4 Fold5 ClusterId70Rep Test
+#in anaconda prompt, do ESM encoding
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Fold1.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Fold1\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Fold2.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Fold2\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Fold3.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Fold3\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Fold4.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Fold4\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Fold5.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Fold5\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\Cluster70IdRep.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\ClusterId70Rep\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Folds_without_Annotations\bepipred3_test.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\5DatasetPreparation\5ESMEncodePartitions\Test\ --include per_tok

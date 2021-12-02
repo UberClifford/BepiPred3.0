@@ -1,0 +1,7 @@
+
+python create_annotation_removed_fasta_file.py -i ../2CreateTestSet/bepipred3_test_set_removed.fasta -t ./NoAnnotations/bepipred3ClusComb50Id.fasta
+python create_annotation_removed_fasta_file.py -i ../2CreateTestSet/bepipred3_test.fasta -t ./NoAnnotations/bepipred3ClusComb50Id_test.fasta
+
+mkdir ClusterId50 Test
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\6Clusterat50ID\3ESMEncoding\NoAnnotations\bepipred3ClusComb50Id.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\6Clusterat50ID\3ESMEncoding\ClusterId50\ --include per_tok
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\6Clusterat50ID\3ESMEncoding\NoAnnotations\bepipred3ClusComb50Id_test.fasta C:\Users\Joaki\OneDrive\Skrivebord\Data\BepiPred3Data\6Clusterat50ID\3ESMEncoding\Test\ --include per_tok

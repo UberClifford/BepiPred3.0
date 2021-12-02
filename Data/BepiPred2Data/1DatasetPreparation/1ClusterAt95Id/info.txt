@@ -1,0 +1,7 @@
+#Remove eval proteins from pdb_chains.fasta
+#Clean pdb_chains.fasta header
+sed -r 's/(>.*_.*)\s(.*)\s(.*)/\1\2/' ../../pdb_chains.fasta > cleaned_pdb_chains.fasta
+#Cluster at 0.95 sequence identity
+mmseqs easy-cluster ./cleaned_pdb_chains.fasta Id95ClusterResults/Id95ClusterRes tmp --min-seq-id 0.95 -c 0.8 --cov-mode 1
+#Combine cluster annotations
+python combine_mmseq_clusters.py -i Id95ClusterResults/Id95ClusterRes_all_seqs.fasta -t Id95ClustersCombined/

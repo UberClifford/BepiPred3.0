@@ -1,0 +1,8 @@
+#Cluster sequences at 20 Identity
+mmseqs easy-cluster ../1ClusterAt95Id/Id95ClustersCombined/clustered_combined_antigens.fasta Id20ClusterResults/Id20ClusterRes tmp --min-seq-id 0.2 -c 0.8 --cov-mode 1
+#manually remove the same five proteins used in BepiPred2 paper and their clusters
+#as well as some random proteins, so that a total of 15 proteins are removed.
+#save removed proteins as bepipred3_test.fasta
+
+#then convert mmseq cluster seqid 20 format back to fasta file
+python convert_mmseq2clusters_to_fasta.py -i Id20ClusterResults/Id20ClusterRes_all_seqs.fasta -t ./

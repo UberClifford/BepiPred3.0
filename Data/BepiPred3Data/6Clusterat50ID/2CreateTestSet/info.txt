@@ -1,0 +1,4 @@
+cp ../../5DatasetPreparation/2CreateTestSet/bepipred3_test.fasta ./bepipred3_test_at_95IdAnnotationsComb.fasta
+cp ../1ClusterAt50ID/Id50ClustersCombined/clustered_combined_antigens.fasta bepipred3_test_set_removed.fasta
+#Manually remove accesions found in bepipred3_test_at_95IdAnnotationsComb.fasta from bepipred3_test_set_removed.fasta.
+#save in bepipred3_test.fasta 

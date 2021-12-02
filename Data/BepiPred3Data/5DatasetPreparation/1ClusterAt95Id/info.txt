@@ -1,0 +1,4 @@
+__95Id clustering__
+mmseqs easy-cluster ../../4Cleanup/Results/combined_unique_antigen_epitopes.fasta Id95ClusterResults/Id95ClusterRes tmp --min-seq-id 0.95 -c 0.8 --cov-mode 1
+__Combine Annotations__
+python combine_mmseq_clusters.py -i Id95ClusterResults/Id95ClusterRes_all_seqs.fasta -t Id95ClustersCombined/

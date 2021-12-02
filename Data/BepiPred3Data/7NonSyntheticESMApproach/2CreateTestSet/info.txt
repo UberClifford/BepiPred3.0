@@ -1,0 +1,10 @@
+__20Id clustering__
+mkdir Id20ClusterResults
+mmseqs easy-cluster ../../4Cleanup/Results/combined_unique_antigen_epitopes.fasta Id20ClusterResults/Id20ClusterRes tmp --min-seq-id 0.2 -c 0.8
+__createtestset__
+cp Id20ClusterResults/Id20ClusterRes_all_seqs.fasta ./ 
+Manually remove test proteins and their corresponding clusters from Id20ClusterRes_all_seqs.fasta.
+7lj4_B, 4xak_A, 4ypg_D, 7chz_I, 5d8j_A, 3pnw_O, 6y6c_A, 5f72_K, 6u6u_R, 4qci_D, 7jum_A, 5th9_A, 6hga_B, 2xwt_C, 6vtw_A
+put into bepipred3_test.fasta.
+__convert Id20ClusterRes_all_seqs.fasta from mmseqs2 to fasta format__
+python convert_mmseq2clusters_to_fasta.py -i Id20ClusterRes_all_seqs.fasta -t ./

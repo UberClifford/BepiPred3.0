@@ -1,0 +1,14 @@
+python divide_mmseq2clusters_into_5_partitions.py -i ../3ClusterAt70Id/Id70ClusterResults/Id70ClusterRes_all_seqs.fasta -t ./Results
+grep -c ">" Fold1.fasta
+124
+grep -c ">" Fold2.fasta
+121
+grep -c ">" Fold3.fasta
+115
+grep -c ">" Fold4.fasta
+111
+grep -c ">" Fold5.fasta
+111
+#create combined annotations fasta file
+cat Fold1.fasta <(echo) Fold2.fasta <(echo) Fold3.fasta <(echo) Fold4.fasta <(echo) Fold5.fasta > bepipred3_all_annotations.fasta
+

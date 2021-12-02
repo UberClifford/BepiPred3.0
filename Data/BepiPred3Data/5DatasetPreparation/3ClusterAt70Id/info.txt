@@ -1,0 +1,1 @@
+mmseqs easy-cluster ../2CreateTestSet/bepipred3_test_set_removed.fasta Id70ClusterResults/Id70ClusterRes tmp --min-seq-id 0.7 -c 0.8 --cov-mode 1

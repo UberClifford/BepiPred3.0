@@ -1,0 +1,8 @@
+__Antigen filtering__
+python antigen_filtering.py -i ../3PDBChainContacts/Results/antigens_with_epitopes.fasta -t ./Results
+Number of pdb accs in input file were: 3331
+After removing sequences with unknown characters, proteins shorter than 40, complete negative, sequences longer than 1024, and combining epitope annotations. There were 1466 left.
+Number of seqeunces with unknown characters: 77
+Number of seqeunces which length of 40 and below: 1055
+Number of seqeuences with length above 1024: 1
+Number of seqeunces with no epitopes at all: 303

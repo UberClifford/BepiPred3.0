@@ -1,0 +1,14 @@
+1. Go to SabDab database: http://opig.stats.ox.ac.uk/webapps/newsabdab/sabdab/search/
+2. Select: Search structures by attribute
+3. Choose parameters: Resolution cutoff: 3.0 , R-factor cutoff: 0.3, Everything else: Default
+There should be around 3761 hits
+4. Download results as zip file and save as ./SABDABHITS
+5. Compare HMM accessions from 1AgABComplexCandsFromPDB to SABDABDATABASE
+python compare_HMM_and_SABDAB_acc.py -f1 ../1AgABComplexCandsFromPDB/Results/AgAbComplexCandidates -f2 ../1AgABComplexCandsFromPDB/Results/AgAbComplexExtraCandidates -d ./SABDABHITS/
+7. Results are saved in ./Results
+Outputs were:
+Accesions in hmm profiling file 2929
+Accesions in extra hmm profiling file 167
+Accesions in sabdab acc file 3761
+Number accesions shared between hmm profiling file and sabdab acc file 1724
+Number accesions shared between extra hmm profiling file and sabdab acc file 72

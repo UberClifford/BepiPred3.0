@@ -1,0 +1,5 @@
+mkdir ESMEncodedProteins
+#in Ubuntu wls
+python create_annotation_removed_fasta_file.py -i ../../4Cleanup/Results/combined_unique_antigen_epitopes.fasta -t ./annotations_removed_antigens.fasta
+#in anacond prompt
+python extract.py esm1b_t33_650M_UR50S C:\Users\Joaki\OneDrive\Skrivebord\SpecialProject\Code\BepiPred\Data\BepiPred3Data\7NonSyntheticESMApproach\1ESMEncoding\annotations_removed_antigens.fasta C:\Users\Joaki\OneDrive\Skrivebord\SpecialProject\Code\BepiPred\Data\BepiPred3Data\7NonSyntheticESMApproach\1ESMEncoding\ESMEncodedProteins\ --include per_tok
