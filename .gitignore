@@ -7,3 +7,4 @@ Data/**/tmp/
 Data/**/ESM/
 Data/**/pdb_seqres.fasta
 Data/**/pdb_seqres.txt.gz
+Results/RandomForestClassification/**/*Fold*
