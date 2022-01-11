@@ -1,0 +1,4 @@
+python cleanup_ag_ab_data.py -i  ../../3PDBChainContacts/Results/antigens_antibody_interactions.pickle  -t ./Results/
+Number ag-ab interactions before filtering anything 7431
+Number ag-ab interactions before filtering out unknowns, peptides and complete negatives 2705
+Number ag-ab interactions before filtering completely redundant ag-ab complexes 2133

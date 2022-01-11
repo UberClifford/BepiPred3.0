@@ -1,0 +1,12 @@
+
+
+
+#From anaconda prompt,
+#simple approach (average ESM embeddings for light and heavy chain)
+python create_esm_crossvalidation.py -i ..\3ClusteringAndPartitoning\Results\ -e ..\4ESMEmbedding\Results\ -t ..\7SimpleApproachCrossValidationDataset\ -simple_approach 
+
+#other approach (include all positional ESM embeddings for light and heavy chain)
+python create_esm_crossvalidation.py -i ..\3ClusteringAndPartitoning\Results\ -e ..\4ESMEmbedding\Results\ -t ..\6CrossValidationDataset\
+#will take a while to create crossvalidation folds, approx. 7 GB per fold. 
+#Also needs about 8 GM RAM to run. 
+

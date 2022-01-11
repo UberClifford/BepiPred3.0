@@ -1,0 +1,57 @@
+### Prepare antibody-antigen interactions for ESM encoding ###
+#from Ubuntu WLS
+python prepare_partitions_for_esm_embeddings.py -i ../3ClusteringAndPartitoning/Results/ -t ./Results/
+
+###ESM Encoding### 
+#Did this from anaconda prompt
+
+##Fold1##
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\light_chains.fasta Results\Fold1_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\heavy_chains.fasta Results\Fold1_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\antigens.fasta Results\Fold1_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean
+
+##Fold2## 
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\light_chains.fasta Results\Fold2_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\heavy_chains.fasta Results\Fold2_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\antigens.fasta Results\Fold2_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean
+
+##Fold3##
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\light_chains.fasta Results\Fold3_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\heavy_chains.fasta Results\Fold3_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\antigens.fasta Results\Fold3_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean
+
+##Fold4##
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\light_chains.fasta Results\Fold4_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\heavy_chains.fasta Results\Fold4_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\antigens.fasta Results\Fold4_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean
+
+##Fold5##
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\light_chains.fasta Results\Fold5_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\heavy_chains.fasta Results\Fold5_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\antigens.fasta Results\Fold5_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean
+
+##Test##
+#lightchains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\test\light_chains.fasta Results\test\ESM_light_chains\ --include per_tok mean
+#heavychains
+python ESM\extract.py esm1b_t33_650M_UR50S Results\test\heavy_chains.fasta Results\test\ESM_heavy_chains\ --include per_tok mean
+#antigens
+python ESM\extract.py esm1b_t33_650M_UR50S Results\test\antigens.fasta Results\test\ESM_antigens\ --include per_tok mean
+
+## Copy/paste this into anaconda command prompt to run everything ##
+python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\light_chains.fasta Results\Fold1_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\heavy_chains.fasta Results\Fold1_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold1_antigens_antibody_interactions\antigens.fasta Results\Fold1_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\light_chains.fasta Results\Fold2_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\heavy_chains.fasta Results\Fold2_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold2_antigens_antibody_interactions\antigens.fasta Results\Fold2_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\light_chains.fasta Results\Fold3_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\heavy_chains.fasta Results\Fold3_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold3_antigens_antibody_interactions\antigens.fasta Results\Fold3_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\light_chains.fasta Results\Fold4_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\heavy_chains.fasta Results\Fold4_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold4_antigens_antibody_interactions\antigens.fasta Results\Fold4_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\light_chains.fasta Results\Fold5_antigens_antibody_interactions\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\heavy_chains.fasta Results\Fold5_antigens_antibody_interactions\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\Fold5_antigens_antibody_interactions\antigens.fasta Results\Fold5_antigens_antibody_interactions\ESM_antigens\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\test\light_chains.fasta Results\test\ESM_light_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\test\heavy_chains.fasta Results\test\ESM_heavy_chains\ --include per_tok mean & python ESM\extract.py esm1b_t33_650M_UR50S Results\test\antigens.fasta Results\test\ESM_antigens\ --include per_tok mean

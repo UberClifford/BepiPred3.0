@@ -1,0 +1,6 @@
+python AnnotateSingleABchainToHLchains.py -i ../1Cleanup/Results/filtered_antigens_single_chain_antibody_interactions.pickle -t ./Results/ -a ../1Cleanup/Results/filtered_antigens_antibody_interactions.pickle
+Detected single chain AG-AB interactions: 92
+AG-AB interactions from earlier (light and heavy chain annotated were separately): 2041
+Converted single chain AG-AB interaction to separate light and heavy chains: 87
+Single chain AG-AB complexes where AB could not be properly separated into light and heavy chain: 5
+New total AG-AB interactions: 2128

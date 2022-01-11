@@ -1,0 +1,1 @@
+python PartitionAgAbComplexesIntersection.py -i ../2AnnotatingSingleChainAB/Results/antigens_antibody_interactions.pickle -t ./Results/

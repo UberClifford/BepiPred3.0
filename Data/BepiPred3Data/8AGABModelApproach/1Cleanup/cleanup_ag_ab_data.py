@@ -26,7 +26,6 @@ ag_ab_interactions = pickle.load(open(infile, "rb"))
 #list of tuples with dim: [(light_chain_id, light_chain_annotated_string, heavy_chain_id, heavy_chain_annotated_string, antigen_id, antigen_annotated_string)]
 #                     or: [(heavy_light_chain_id, heavy_light_chain_annotated_seq, antigen_id, antigen_annotated_seq)]
 
-
 ### FUNCTIONS ###
 
 def detect_sequence_with_unknowns(pdb_seq):
@@ -49,11 +48,41 @@ def detect_peptide(pdb_seq, allowed_protein_len = 40):
         pass
     return peptide
 
+def check_maximum_length(pdb_seq, maximum_length=1024):
+    """
+    The ESM can only encode proteins of a maximum length of 1024.
+    """
+
+    seq_len = len(pdb_seq)
+    too_big_seq = None
+
+    if seq_len > maximum_length:
+        too_big_seq = pdb_seq
+    else:
+        pass
+
+    return too_big_seq
+
+
+def check_for_epitopes(pdb_seq):
+    """
+    Checking that there is at least one epitope annotation.
+    """
+    pos = "foo"
+    for res in pdb_seq:
+        check = res.isupper()
+        if check:
+            pos = None
+            break
+    return pos
+
+
 def filter_unknowns_and_peptides(ag_ab_interactions):
 
     filtered_ag_ab_interactions = list()
     filtered_ag_single_chain_ab_interactions = list()
     for ag_ab_interaction in ag_ab_interactions:
+        #if light and heavy chain are separately annotated
         if len(ag_ab_interaction) == 6:
             light_chain_id = ag_ab_interaction[0]
             light_chain_anno_string = ag_ab_interaction[1]
@@ -70,12 +99,20 @@ def filter_unknowns_and_peptides(ag_ab_interactions):
             check4 = detect_peptide(light_chain_anno_string)
             check5 = detect_peptide(heavy_chain_anno_string)
             check6 = detect_peptide(antigen_anno_string)
+            #check for maximum length
+            check7 = check_maximum_length(light_chain_anno_string)
+            check8 = check_maximum_length(heavy_chain_anno_string)
+            check9 = check_maximum_length(antigen_anno_string)
+
+            #check that there is at least one epitope residue
+            check10 = check_for_epitopes(antigen_anno_string)
     
             #if there aren't unknowns in light, heavy or ag chain
-            if not any(check != None for check in (check1, check2, check3, check4, check5, check6)):
+            if not any(check != None for check in (check1, check2, check3, check4, check5, check6, check7, check8, check9, check10)):
                 filtered_ag_ab_interactions.append((ag_ab_interaction))
-    
-    
+
+
+        #if light and heavy chain are not separately annoated
         elif len(ag_ab_interaction) == 4:
             heavy_light_chain_id = ag_ab_interaction[0]
             heavy_light_chain_anno_string = ag_ab_interaction[1]
@@ -88,12 +125,19 @@ def filter_unknowns_and_peptides(ag_ab_interactions):
             #check for peptides
             check3 = detect_peptide(heavy_light_chain_anno_string)
             check4 = detect_peptide(antigen_anno_string)
-    
-            if not any(check != None for check in (check1, check2, check3, check4)):
+            #check for maximum length
+            check5 = check_maximum_length(heavy_light_chain_anno_string)
+            check6 = check_maximum_length(antigen_anno_string)
+            #check that there is at least one epitope residue
+            check7 = check_for_epitopes(antigen_anno_string)
+
+            if not any(check != None for check in (check1, check2, check3, check4, check5, check6, check7)):
                 filtered_ag_single_chain_ab_interactions.append((ag_ab_interaction))
     
         else:
             print("Something is wrong!")
+
+
 
     return filtered_ag_ab_interactions, filtered_ag_single_chain_ab_interactions
 
@@ -149,11 +193,11 @@ def filter_redundant_ag_singlechain_ab_complexes(ag_ab_interactions, case_sensit
 print(f"Number ag-ab interactions before filtering anything {len(ag_ab_interactions)}")
 #filter out unknowns and peptides
 filtered_ag_ab_interactions, filtered_ag_single_chain_ab_interactions = filter_unknowns_and_peptides(ag_ab_interactions) 
-print(f"Number ag-ab interactions before filtering out unknowns and peptides {len(filtered_ag_ab_interactions) + len(filtered_ag_single_chain_ab_interactions)}")
+print(f"Number ag-ab interactions before filtering out unknowns, peptides and complete negatives {len(filtered_ag_ab_interactions) + len(filtered_ag_single_chain_ab_interactions)}")
 #filter redundandt ag-ab complexes
 filtered_ag_ab_interactions = filter_redundant_agab_complexes(filtered_ag_ab_interactions)
 filtered_ag_single_chain_ab_interactions = filter_redundant_ag_singlechain_ab_complexes(filtered_ag_single_chain_ab_interactions)
-print(f"Number ag-ab interactions before filtering out unknowns and peptides {len(filtered_ag_ab_interactions) + len(filtered_ag_single_chain_ab_interactions)}")
+print(f"Number ag-ab interactions before filtering completely redundant ag-ab complexes {len(filtered_ag_ab_interactions) + len(filtered_ag_single_chain_ab_interactions)}")
 
 ### Save data ###
 
