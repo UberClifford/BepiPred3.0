@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import math
+import pandas as pd
 from torch.nn import CrossEntropyLoss, Softmax, BatchNorm1d, BCEWithLogitsLoss, Sigmoid
 import pickle
 from scipy import stats
@@ -13,6 +14,8 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.decomposition import PCA
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 import numpy as np
 from torch.optim import Adam
@@ -33,6 +36,8 @@ DATA_DIR = ROOT_DIR / "Data"
 BEPIPRED3_NON_HOM_REDUCED = DATA_DIR / "BepiPred3Data" / "5DatasetPreparation" / "7CrossValidationNonHomologyReduced"
 BEPIPRED3_HOM_REDUCED = DATA_DIR / "BepiPred3Data" / "5DatasetPreparation" / "8CrossValidationHomologyReduced"
 BEPIPRED3_CLUS50ID = DATA_DIR / "BepiPred3Data" / "6Clusterat50ID" / "5CrossValidationClusterAt50Id"
+BEPIPRED3_AGAB_DATASET = DATA_DIR / "8AGABModelApproach" / "6CrossValidationDataset"
+BEPIPRED3_AGAB_SIMPLE_DATASET = DATA_DIR / "8AGABModelApproach" / "7SimpleApproachCrossValidationDataset" 
 
 RESULTS_DIR = ROOT_DIR / "Results"
 FIGURE_DIR = RESULTS_DIR / "NeuralNetworks" / "Figures"
@@ -55,6 +60,39 @@ def load_data(data_path, test_data=False):
         y_val = loaded_data["saved_y_val"]
         return X_train, y_train, X_val, y_val
 
+def ag_ab_load_data(data_path, test_data=False):
+    """
+    """
+    loaded_data = np.load(data_path, allow_pickle=True)
+    
+    if test_data:
+        test_ids = loaded_data["saved_test_ids"]
+        test_labels = loaded_data["saved_test_labels"]
+        test_lchain =loaded_data["saved_test_lchain"]
+        test_hchain = loaded_data["saved_test_lchain"]
+        test_antigen = loaded_data["saved_test_antigen"]
+        return (test_ids, test_labels, test_lchain, test_hchain, test_antigen)
+    
+    else:
+        #train data
+        train_ids = loaded_data["saved_train_ids"]
+        train_labels = loaded_data["saved_train_labels"]
+        train_lchain = loaded_data["saved_train_lchain"]
+        train_hchain = loaded_data["saved_train_hchain"]
+        train_antigen = loaded_data["saved_train_antigen"]
+        #val data
+        val_ids = loaded_data["saved_val_ids"]
+        val_labels = loaded_data["saved_val_labels"]
+        val_lchain = loaded_data["saved_val_lchain"]
+        val_hchain = loaded_data["saved_val_hchain"]
+        val_antigen = loaded_data["saved_val_antigen"]
+        
+        train = (train_ids, train_labels, train_lchain, train_hchain, train_antigen)
+        val = (val_ids, val_labels, val_lchain, val_hchain, val_antigen)
+        
+        return train, val
+    
+    
 def separate_acc_names_from_labels(y_data):
     """
     """
@@ -398,8 +436,6 @@ def compute_auc10(fpr, tpr):
     
     return auc10 
 
-
-
 def get_labels_preds_and_posprob_without_padding(model_output, labels):
     
     y_true = list()
@@ -426,6 +462,105 @@ def get_labels_preds_and_posprob_without_padding(model_output, labels):
 #            y_preds_no_padding.append(preds[i])
             
     return y_true, y_pos_prob_no_padding #, y_preds_no_padding
+
+
+def cm_analysis(y_true, y_pred, labels, figure_dir, ymap=None, figsize=(10,8)):
+    """
+    Generate matrix plot of confusion matrix with pretty annotations.
+    The plot image is saved to disk.
+    #https://gist.github.com/hitvoice/36cf44689065ca9b927431546381a3f7 steal!
+    args: 
+      y_true:    true label of the data, with shape (nsamples,)
+      y_pred:    prediction of the data, with shape (nsamples,)
+      labels:    string array, name the order of class labels in the confusion matrix.
+                 use `clf.classes_` if using scikit-learn models.
+                 with shape (nclass,).
+      ymap:      dict: any -> string, length == nclass.
+                 if not None, map the labels & ys to more understandable strings.
+                 Caution: original y_true, y_pred and labels must align.
+      figsize:   the size of the figure plotted.
+    """
+    if ymap is not None:
+        y_pred = [ymap[yi] for yi in y_pred]
+        y_true = [ymap[yi] for yi in y_true]
+        labels = [ymap[yi] for yi in labels]
+    cm = confusion_matrix(y_true, y_pred)
+    cm_sum = np.sum(cm, axis=1, keepdims=True)
+    cm_perc = cm / cm_sum.astype(float) * 100
+    annot = np.empty_like(cm).astype(str)
+    nrows, ncols = cm.shape
+    for i in range(nrows):
+        for j in range(ncols):
+            c = cm[i, j]
+            p = cm_perc[i, j]
+            if i == j:
+                s = cm_sum[i]
+#                annot[i, j] = '%.1f%%\n%d/%d' % (p, c, s)
+                annot[i, j] = f'{round(p,2)}%\n{c}'
+            elif c == 0:
+                annot[i, j] = ''
+            else:
+                annot[i, j] = '%.1f%%\n%d' % (p, c)
+    cm = pd.DataFrame(cm, index=labels, columns=labels)
+    cm.index.name = 'True'
+    cm.columns.name = 'Predicted'
+    fig, ax = plt.subplots(figsize=figsize)
+    sns.heatmap(cm, annot=annot, fmt='', ax=ax, cmap='OrRd', linewidths = 1.5, linecolor='black')
+    plt.savefig(figure_dir / "confusion_matrix", dpi=500, bbox_inches= "tight")
+    
+
+
+def get_top_x_pos_probs_scores(pos_probs, y_true, optimal_thresh, top=30, print_top_seq_idxs=False, ensemble_preds=None):
+    
+    """
+    all_pos_probs: List/array of positive probabilities.
+    y_true: List/array of labels
+    """
+    
+    seq_idxs = [i for i in range(len(pos_probs))]
+    
+    #not ensemble 
+    if ensemble_preds == None:
+        sorted_top_x = sorted(zip(pos_probs, y_true, seq_idxs), key=lambda pair: pair[0], reverse=True)[:top]
+        sorted_top_x_pos_prob = [val[0] for val in sorted_top_x]
+        sorted_top_x_label = [val[1] for val in sorted_top_x]
+        sorted_top_seq_idxs = [val[2] for val in sorted_top_x]
+        y_preds = [1 if res >= optimal_thresh else 0 for res in sorted_top_x_pos_prob]
+    
+    #ensemble
+    else:
+        sorted_top_x = sorted(zip(pos_probs, y_true, seq_idxs, ensemble_preds), key=lambda pair: pair[0], reverse=True)[:top]
+        sorted_top_x_label = [val[1] for val in sorted_top_x]
+        sorted_top_seq_idxs = [val[2] for val in sorted_top_x]
+        y_preds = [val[3] for val in sorted_top_x]
+        
+    acc = metrics.accuracy_score(sorted_top_x_label, y_preds)
+    recall = metrics.recall_score(sorted_top_x_label, y_preds)
+    precision = metrics.precision_score(sorted_top_x_label, y_preds)
+    
+    print(f"Accuaracy, recall and precision on top-{top} assigned highest pos. prob")
+    print(f"Accuracy: {acc}\nRecall: {recall}\nPrecision: {precision}")
+    if print_top_seq_idxs:
+        print(f"Top seq idx: {sorted_top_seq_idxs}")
+        bin_class_dict = {0:"Non-epitope residue", 1:"Epitope residue"}
+        for i in range(top):
+            print(f"Seq idx:{sorted_top_seq_idxs[i]} Pred:{bin_class_dict[y_preds[i]]}, Label:{bin_class_dict[sorted_top_x_label[i]]}")
+        
+    
+def MCC_loss(prediction, labels):
+    y = labels.flatten()
+    yp = prediction.flatten()
+    TP = torch.sum(y*torch.sqrt(yp))
+    TN = torch.sum((1.-y)*(1.-torch.sqrt(yp)))
+    FP = torch.sum((1.-y)*torch.sqrt(yp))
+    FN = torch.sum(y*(1.-torch.sqrt(yp)))
+    MCC = ((TP*TN)-(FP*FN))/torch.sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+    loss = 1. - MCC
+    return loss
+    
+
+
+
     
   
     

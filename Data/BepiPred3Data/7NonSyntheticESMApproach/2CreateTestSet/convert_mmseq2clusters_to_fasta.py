@@ -73,6 +73,8 @@ def get_cluster_accs_from_mmseq_output(readfile):
         cluster_accs_and_seqs = [(cluster_accs[0], cluster_sequence) ]
     #if last cluster has multiple sequences
     else:
+    	#append last sequence 
+        cluster_sequences.append(cluster_sequence)
         cluster_accs_and_seqs = list( zip(cluster_accs, cluster_sequences) )
 
     all_cluster_acc_and_seqs.extend(cluster_accs_and_seqs)

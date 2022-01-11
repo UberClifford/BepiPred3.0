@@ -341,34 +341,34 @@ print(np.shape(test_esm_rep), np.shape(test_labels))
 ### CREATE CROSSVALIDATION DATASETS ###
 
 #Fold1 
-#val_embeddings = partition_1_esm_rep
-#val_labels = partition_1_labels
-#train_embeddings = np.concatenate( (partition_2_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_5_esm_rep) )
-#train_labels = np.concatenate( (partition_2_labels, partition_3_labels, partition_4_labels, partition_5_labels) )
-#create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold1")
-###Fold2
-#val_embeddings = partition_2_esm_rep
-#val_labels = partition_2_labels
-#train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_5_esm_rep) ) 
-#train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_4_labels, partition_5_labels) )
-#create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold2")
-##Fold3
-#val_embeddings = partition_3_esm_rep
-#val_labels = partition_3_labels
-#train_embeddings = np.concatenate( (partition_1_esm_rep, partition_2_esm_rep, partition_4_esm_rep, partition_5_esm_rep) )
-#train_labels = np.concatenate( (partition_1_labels, partition_2_labels, partition_4_labels, partition_5_labels) )
-#create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold3")
-##Fold4
-#val_embeddings = partition_4_esm_rep
-#val_labels = partition_4_labels
-#train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_2_esm_rep, partition_5_esm_rep) )
-#train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_2_labels, partition_5_labels) )
-#create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold4")
-##Fold5
-#val_embeddings = partition_5_esm_rep
-#val_labels = partition_5_labels
-#train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_2_esm_rep) )
-#train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_4_labels, partition_2_labels) )
-#create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold5")
-##save test data
-#save_data(test_esm_rep, test_labels, CROSS_VALIDATION_SAVE_PATH, "test")
+val_embeddings = partition_1_esm_rep
+val_labels = partition_1_labels
+train_embeddings = np.concatenate( (partition_2_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_5_esm_rep) )
+train_labels = np.concatenate( (partition_2_labels, partition_3_labels, partition_4_labels, partition_5_labels) )
+create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold1")
+##Fold2
+val_embeddings = partition_2_esm_rep
+val_labels = partition_2_labels
+train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_5_esm_rep) ) 
+train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_4_labels, partition_5_labels) )
+create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold2")
+#Fold3
+val_embeddings = partition_3_esm_rep
+val_labels = partition_3_labels
+train_embeddings = np.concatenate( (partition_1_esm_rep, partition_2_esm_rep, partition_4_esm_rep, partition_5_esm_rep) )
+train_labels = np.concatenate( (partition_1_labels, partition_2_labels, partition_4_labels, partition_5_labels) )
+create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold3")
+#Fold4
+val_embeddings = partition_4_esm_rep
+val_labels = partition_4_labels
+train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_2_esm_rep, partition_5_esm_rep) )
+train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_2_labels, partition_5_labels) )
+create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold4")
+#Fold5
+val_embeddings = partition_5_esm_rep
+val_labels = partition_5_labels
+train_embeddings = np.concatenate( (partition_1_esm_rep, partition_3_esm_rep, partition_4_esm_rep, partition_2_esm_rep) )
+train_labels = np.concatenate( (partition_1_labels, partition_3_labels, partition_4_labels, partition_2_labels) )
+create_crossvalidation_fold(train_embeddings, train_labels, val_embeddings, val_labels, CROSS_VALIDATION_SAVE_PATH / "Fold5")
+#save test data
+save_data(test_esm_rep, test_labels, CROSS_VALIDATION_SAVE_PATH, "test")

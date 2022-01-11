@@ -153,6 +153,8 @@ def get_cluster_accs_from_mmseq_output(readfile):
         print(cluster_accs_and_seqs)
     #if last cluster has multiple sequences
     else:
+    	#append last sequence 
+        cluster_sequences.append(cluster_sequence)
         cluster_accs_and_seqs = list( zip(cluster_accs, cluster_sequences) )
     cluster_rep = pairwise_alignment_on_cluster(cluster_accs_and_seqs)
     cluster_representatives.append(cluster_rep)
